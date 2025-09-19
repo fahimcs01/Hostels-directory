@@ -1,0 +1,96 @@
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <title>Hostel / PG Listings</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+
+    <div class="container">
+    <h1>🏠 Hostel / PG Listings</h1>
+
+    <!-- Stats Section -->
+    <div class="stats-container">
+        <div class="stat-card">
+        <span class="stat-number" id="totalHostels">0</span>
+        <span class="stat-label">Total Listings</span>
+        </div>
+        <div class="stat-card">
+        <span class="stat-number" id="avgPrice">₹0</span>
+        <span class="stat-label">Average Price</span>
+        </div>
+        <div class="stat-card">
+        <span class="stat-number" id="avgRating">0</span>
+        <span class="stat-label">Average Rating</span>
+        </div>
+        <div class="stat-card">
+        <span class="stat-number" id="topRated">0</span>
+        <span class="stat-label">5-Star Places</span>
+        </div>
+    </div>
+
+    <!-- Add Hostel Form -->
+    <div class="form-container">
+        <div class="section-title" style="grid-column: 1/-1;">✨ Add New Hostel / PG</div>
+        <input type="text" id="name" placeholder="Hostel/PG Name *" required>
+        <input type="number" id="price" placeholder="Monthly Rent (₹) *" required min="1000" max="50000">
+        <select id="food" required>
+        <option value="">Food Quality *</option>
+        <option value="1">⭐ Poor</option>
+        <option value="2">⭐⭐ Fair</option>
+        <option value="3">⭐⭐⭐ Good</option>
+        <option value="4">⭐⭐⭐⭐ Very Good</option>
+        <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+        </select>
+        <input type="url" id="location" class="location-input" placeholder="Google Maps Link (e.g., https://maps.google.com/...) *" required>
+        <textarea id="reviews" class="reviews-input" placeholder="Write your detailed review about this place... (facilities, cleanliness, staff, etc.)"></textarea>
+        <div style="text-align: center; margin-bottom: 15px;">
+        <label for="imgFile" class="custom-file-upload">
+            📤 Insert Image
+        </label>
+        <input type="file" id="imgFile" accept="image/*" onchange="previewImageFile()">
+<div style="text-align: center; margin-top: 10px;">
+    <div id="imagePreviewText" style="color: #555; font-style: italic; margin-bottom: 5px;">Insert Image</div>
+    <img id="imagePreview" class="image-preview" style="display: none;">
+</div>
+
+        </div>
+
+        <button onclick="addHostel()" style="grid-column: 1/-1; font-size: 16px; padding: 15px;">🏠 Add Hostel/PG</button>
+    </div>
+
+    <!-- Search & Filter -->
+    <div class="filter-container">
+        <div class="section-title" style="grid-column: 1/-1;">🔍 Search & Filter</div>
+        <input type="text" id="searchName" placeholder="🔍 Search by name" oninput="debounceSearch()">
+        <input type="number" id="maxPrice" placeholder="💰 Maximum price (₹)" oninput="debounceSearch()" min="1000" max="50000">
+        <select id="minRating" onchange="fetchHostels()">
+        <option value="">⭐ Minimum rating</option>
+        <option value="1">1+ Stars</option>
+        <option value="2">2+ Stars</option>
+        <option value="3">3+ Stars</option>
+        <option value="4">4+ Stars</option>
+        <option value="5">5 Stars Only</option>
+        </select>
+        <select id="sortBy" onchange="fetchHostels()">
+        <option value="created_at">📅 Sort by Date (Newest)</option>
+        <option value="price_asc">💰 Price (Low to High)</option>
+        <option value="price_desc">💰 Price (High to Low)</option>
+        <option value="rating_desc">⭐ Rating (High to Low)</option>
+        <option value="name">🏠 Name (A-Z)</option>
+        </select>
+    </div>
+
+    <div id="hostelsList">
+        <div class="loading">Loading hostels...</div>
+    </div>
+    </div>
+     <!-- Supabase library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Your external JS -->
+    <script src="hostels.js"></script>
+    </body>
+    </html>
